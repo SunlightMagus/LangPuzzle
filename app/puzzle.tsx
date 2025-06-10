@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet, Dimensions, Alert, Button, Text } from 'react-native';
+import { useRouter } from 'expo-router';
+import StyledButton from '~/components/StyledButton';
 
 const image = require('~/assets/puzzle.jpg');
 
@@ -40,10 +42,20 @@ export default function PuzzleGame() {
   const [tiles, setTiles] = useState<Tile[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [hasMoved, setHasMoved] = useState(false);
+  const [moveCount, setMoveCount] = useState(0);
+  const router = useRouter();
 
-  useEffect(() => {
+  // Initialize or reset puzzle
+  const initializePuzzle = () => {
     const shuffledTiles = shuffleTiles(generateTiles());
     setTiles(shuffledTiles);
+    setMoveCount(0);
+    setSelectedIndex(null);
+    setHasMoved(false);
+  };
+
+  useEffect(() => {
+    initializePuzzle();
   }, []);
 
   useEffect(() => {
@@ -67,6 +79,7 @@ export default function PuzzleGame() {
       setTiles(newTiles);
       setSelectedIndex(null);
       setHasMoved(true);
+      setMoveCount(moveCount + 1);
     }
   };
 
@@ -78,6 +91,15 @@ export default function PuzzleGame() {
 
   return (
     <View style={styles.container}>
+      {/* Buttons row */}
+      <View style={{ flexDirection: 'row', marginBottom: 10, justifyContent: 'space-between', width: IMAGE_SIZE }}>
+        <StyledButton title="Grįžti į testą" onPress={() => router.back()} />
+        <StyledButton title="Atstatyti dėlionę" onPress={initializePuzzle} />
+      </View>
+
+      {/* Move counter */}
+      <Text style={styles.moveCounter}>Atlikti ėjimai: {moveCount}</Text>
+
       <View style={styles.puzzle}>
         {tiles.map(tile => {
           const { top, left } = getTilePosition(tile.currentIndex);
@@ -122,6 +144,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eaeaea',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 20,
   },
   puzzle: {
     width: IMAGE_SIZE,
@@ -136,5 +159,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
     overflow: 'hidden',
+  },
+  moveCounter: {
+    marginBottom: 10,
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
   },
 });
