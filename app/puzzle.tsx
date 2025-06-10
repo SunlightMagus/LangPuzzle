@@ -1,96 +1,140 @@
-// app/puzzle.tsx
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text } from 'react-native';
-import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { View, TouchableOpacity, Image, StyleSheet, Dimensions, Alert } from 'react-native';
 
-const gridSize = 4;
 const image = require('~/assets/puzzle.jpg');
-const screenWidth = Dimensions.get('window').width;
-const tileSize = screenWidth / gridSize;
 
-const generateTiles = () => {
-  const tiles = [];
-  for (let row = 0; row < gridSize; row++) {
-    for (let col = 0; col < gridSize; col++) {
-      tiles.push({ row, col, id: row * gridSize + col });
-    }
-  }
-  return shuffle(tiles);
+const GRID_SIZE = 4;
+const TILE_COUNT = GRID_SIZE * GRID_SIZE;
+const { width } = Dimensions.get('window');
+const IMAGE_SIZE = width - 40;
+const TILE_SIZE = IMAGE_SIZE / GRID_SIZE;
+
+type Tile = {
+  id: number;
+  correctIndex: number;
+  currentIndex: number;
 };
 
-const shuffle = (array: any[]) => {
-  let currentIndex = array.length,
-    randomIndex;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+function generateTiles(): Tile[] {
+  return Array.from({ length: TILE_COUNT }, (_, i) => ({
+    id: i,
+    correctIndex: i,
+    currentIndex: i,
+  }));
+}
+
+function shuffleTiles(tiles: Tile[]): Tile[] {
+  const shuffled = [...tiles];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i].currentIndex, shuffled[j].currentIndex] = [shuffled[j].currentIndex, shuffled[i].currentIndex];
   }
-  return array;
-};
+  return shuffled;
+}
+
+function isPuzzleSolved(tiles: Tile[]): boolean {
+  return tiles.every(tile => tile.currentIndex === tile.correctIndex);
+}
 
 export default function PuzzleGame() {
-  const [tiles, setTiles] = useState(generateTiles());
-  const [moves, setMoves] = useState(0);
-  const router = useRouter();
+  const [tiles, setTiles] = useState<Tile[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [hasMoved, setHasMoved] = useState(false);
+
+  useEffect(() => {
+    const shuffledTiles = shuffleTiles(generateTiles());
+    setTiles(shuffledTiles);
+  }, []);
+
+  useEffect(() => {
+    if (hasMoved && isPuzzleSolved(tiles)) {
+      Alert.alert('Sveikiname!', 'Jūs išsprendėte dėlionę!');
+    }
+  }, [tiles]);
 
   const handleTilePress = (index: number) => {
-    // You can implement swap logic here (if needed).
-    setMoves(moves + 1);
+    if (selectedIndex === null) {
+      setSelectedIndex(index);
+    } else if (selectedIndex === index) {
+      setSelectedIndex(null);
+    } else {
+      // Swap the tiles
+      const newTiles = [...tiles];
+      const tileA = newTiles.find(t => t.currentIndex === selectedIndex)!;
+      const tileB = newTiles.find(t => t.currentIndex === index)!;
+
+      [tileA.currentIndex, tileB.currentIndex] = [tileB.currentIndex, tileA.currentIndex];
+      setTiles(newTiles);
+      setSelectedIndex(null);
+      setHasMoved(true);
+    }
+  };
+
+  const getTilePosition = (index: number) => {
+    const row = Math.floor(index / GRID_SIZE);
+    const col = index % GRID_SIZE;
+    return { top: row * TILE_SIZE, left: col * TILE_SIZE };
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Surenkite paveikslėlį</Text>
-      <View style={styles.grid}>
-        {tiles.map((tile, index) => (
-          <TouchableOpacity key={index} onPress={() => handleTilePress(index)}>
-            <Image
-              source={image}
-              style={{
-                width: tileSize,
-                height: tileSize,
-                transform: [
-                  { translateX: -tile.col * tileSize },
-                  { translateY: -tile.row * tileSize },
-                ],
-                position: 'absolute',
-              }}
-            />
-            <View
-              style={{
-                width: tileSize,
-                height: tileSize,
-                overflow: 'hidden',
-              }}
-            />
-          </TouchableOpacity>
-        ))}
+      <View style={styles.puzzle}>
+        {tiles.map(tile => {
+          const { top, left } = getTilePosition(tile.currentIndex);
+          const row = Math.floor(tile.correctIndex / GRID_SIZE);
+          const col = tile.correctIndex % GRID_SIZE;
+
+          return (
+            <TouchableOpacity
+              key={tile.id}
+              activeOpacity={0.8}
+              style={[
+                styles.tile,
+                {
+                  top,
+                  left,
+                  borderColor: selectedIndex === tile.currentIndex ? 'red' : '#fff',
+                },
+              ]}
+              onPress={() => handleTilePress(tile.currentIndex)}
+            >
+              <Image
+                source={image}
+                style={{
+                  width: IMAGE_SIZE,
+                  height: IMAGE_SIZE,
+                  position: 'absolute',
+                  top: -row * TILE_SIZE,
+                  left: -col * TILE_SIZE,
+                }}
+              />
+            </TouchableOpacity>
+          );
+        })}
       </View>
-      <Text style={styles.footer}>Perėjimai: {moves}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
-    alignItems: 'center',
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#eaeaea',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  header: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  grid: {
-    width: screenWidth,
-    height: screenWidth,
-    flexDirection: 'row',
+  puzzle: {
+    width: IMAGE_SIZE,
+    height: IMAGE_SIZE,
+    position: 'relative',
     flexWrap: 'wrap',
   },
-  footer: {
-    marginTop: 20,
-    fontSize: 18,
+  tile: {
+    width: TILE_SIZE,
+    height: TILE_SIZE,
+    position: 'absolute',
+    borderWidth: 1,
+    borderColor: '#fff',
+    overflow: 'hidden',
   },
 });

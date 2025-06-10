@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StatusBar } from 'react-native';
+import { Alert, StatusBar,Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import questions from '~/assets/data/AllQuestionsData';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
@@ -7,6 +7,7 @@ import EndedQuestion from '~/components/EndedQuestion';
 import { QuizQuestion } from '~/types';
 import HeaderComponent from '~/components/HeaderComponent';
 import { SignOutButton } from '~/components/SignOutButton';
+import { useRouter } from 'expo-router';
 
 export default function Home() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -14,10 +15,11 @@ export default function Home() {
     questions[currentQuestionIndex]
   );
   const [lives, setLives] = useState(5);
+  const router = useRouter();
 
   useEffect(() => {
     if (currentQuestionIndex >= questions.length) {
-      Alert.alert('Jūs laimėjote!', 'Štai jums dėlionės žaidimas.');
+      Alert.alert('Jūs laimėjote!');
       setCurrentQuestionIndex(0);
     } else {
       setCurrentQuestion(questions[currentQuestionIndex]);
@@ -53,6 +55,8 @@ export default function Home() {
       <HeaderComponent progress={currentQuestionIndex / questions.length} lives={lives} />
 
       <SignOutButton />
+
+      <Button title="Testuoti dėlionės žaidimą" onPress={() => router.push('/puzzle')} />
 
       {currentQuestion.type === 'MULTIPLE_CHOICE' && (
         <MultipleChoiceQuestion
