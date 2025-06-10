@@ -9,21 +9,19 @@ const MultipleChoiceQuestion = ({ question, onCorrectAnswer, onWrongAnswer }: Qu
 
   const onButtonPress = () => {
     if (selected?.correct) {
-      // Teisingas atsakymas
       onCorrectAnswer();
       setSelected(null);
     } else {
-      // Neteisingas atsakymas
       onWrongAnswer();
     }
   };
 
   return (
     <>
-      <Text className="mb-4 text-center text-lg font-bold">{question.question}</Text>
+      <Text className="mb-4 text-center text-lg font-bold">{question.text}</Text>
 
       <View className="w-full flex-1 flex-row flex-wrap justify-between gap-2">
-        {question.options.map((option) => (
+        {question.options?.map((option) => (
           <ImageOption
             key={option.id}
             image={option.image}

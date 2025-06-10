@@ -8,16 +8,13 @@ export type Option = {
 export type QuizQuestion = {
   id: string;
   type: 'OPEN_ENDED' | 'MULTIPLE_CHOICE';
-  text: string;
+  text: string; // ✅ Keep using 'text' for the question text
   answer?: string;
   options?: Option[];
 };
 
 export type QuestionProp = {
-  question: {
-    question: string;
-    options: Option[];
-  };
+  question: QuizQuestion; // ✅ Match the structure you already use
   onCorrectAnswer: () => void;
   onWrongAnswer: () => void;
 };
