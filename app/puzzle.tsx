@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet, Dimensions, Alert, Button, Text } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions,
+  Alert,
+  Modal,
+  Text,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import StyledButton from '~/components/StyledButton';
 
@@ -43,15 +52,16 @@ export default function PuzzleGame() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [hasMoved, setHasMoved] = useState(false);
   const [moveCount, setMoveCount] = useState(0);
+  const [isGameWon, setIsGameWon] = useState(false);
   const router = useRouter();
 
-  // Initialize or reset puzzle
   const initializePuzzle = () => {
     const shuffledTiles = shuffleTiles(generateTiles());
     setTiles(shuffledTiles);
     setMoveCount(0);
     setSelectedIndex(null);
     setHasMoved(false);
+    setIsGameWon(false);
   };
 
   useEffect(() => {
@@ -60,17 +70,18 @@ export default function PuzzleGame() {
 
   useEffect(() => {
     if (hasMoved && isPuzzleSolved(tiles)) {
-      Alert.alert('Sveikiname!', 'Jūs išsprendėte dėlionę!');
+      setIsGameWon(true);
     }
   }, [tiles]);
 
   const handleTilePress = (index: number) => {
+    if (isGameWon) return;
+
     if (selectedIndex === null) {
       setSelectedIndex(index);
     } else if (selectedIndex === index) {
       setSelectedIndex(null);
     } else {
-      // Swap the tiles
       const newTiles = [...tiles];
       const tileA = newTiles.find(t => t.currentIndex === selectedIndex)!;
       const tileB = newTiles.find(t => t.currentIndex === index)!;
@@ -79,7 +90,7 @@ export default function PuzzleGame() {
       setTiles(newTiles);
       setSelectedIndex(null);
       setHasMoved(true);
-      setMoveCount(moveCount + 1);
+      setMoveCount(prev => prev + 1);
     }
   };
 
@@ -134,6 +145,19 @@ export default function PuzzleGame() {
           );
         })}
       </View>
+
+      {/* Victory Modal */}
+      <Modal visible={isGameWon} transparent animationType="fade">
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>🎉 Sveikiname!</Text>
+            <Text style={styles.modalText}>Jūs išsprendėte dėlionę per {moveCount} ėjimų.</Text>
+            <StyledButton title="Žaisti iš naujo" onPress={initializePuzzle} />
+            <View style={{ height: 10 }} />
+            <StyledButton title="Grįžti į testą" onPress={() => router.back()} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -165,5 +189,30 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#fff',
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: '80%',
+    backgroundColor: '#1e1e1e',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 24,
+    color: '#0f0',
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    color: '#fff',
+    marginBottom: 20,
+    textAlign: 'center',
   },
 });

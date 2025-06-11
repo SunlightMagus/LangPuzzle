@@ -17,7 +17,10 @@ Interaktyvus mobilusis quiz žaidimas sukurtas naudojant React Native, Expo ir C
 
     🔊 (galima pridėti garsus ateityje)
 
-(https://res.cloudinary.com/dmzg0apbj/image/upload/v1749667998/4a7f016fd2be93486537189c59264c0f_pdd1oz.gif) |
+    | Prisijungęs vartotojas               | Klausimas                            | Pergalės GIF                                                                                                          |
+
+| ------------------------------------ | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| ![User](https://i.imgur.com/XYZ.png) | ![Quiz](https://i.imgur.com/XYZ.png) | ![Victory](https://res.cloudinary.com/dmzg0apbj/image/upload/v1749667998/4a7f016fd2be93486537189c59264c0f_pdd1oz.gif) |
 
 🔧 Naudotos technologijos
 
