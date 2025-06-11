@@ -94,7 +94,7 @@ export default function PuzzleGame() {
       {/* Buttons row */}
       <View style={{ flexDirection: 'row', marginBottom: 10, justifyContent: 'space-between', width: IMAGE_SIZE }}>
         <StyledButton title="Grįžti į testą" onPress={() => router.back()} />
-        <StyledButton title="Atstatyti dėlionę" onPress={initializePuzzle} />
+        <StyledButton title="Sumaišyti" onPress={initializePuzzle} />
       </View>
 
       {/* Move counter */}
@@ -141,7 +141,7 @@ export default function PuzzleGame() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eaeaea',
+    backgroundColor: '#000',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 20,
@@ -164,6 +164,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: '#fff',
   },
 });

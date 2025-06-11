@@ -67,7 +67,7 @@ export default function Home() {
         <Text style={{ fontSize: 16 }}>
           Prisijungęs vartotojas: {user?.firstName ?? 'Vartotojas'}
         </Text>
-        {/* Galbūt norėsi parodyti ir el. paštą */}
+        {/* Rodyti el. paštą */}
         <Text style={{ fontSize: 12, color: 'gray' }}>
           {user?.primaryEmailAddress?.emailAddress ?? ''}
         </Text>

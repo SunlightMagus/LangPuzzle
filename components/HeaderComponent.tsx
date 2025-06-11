@@ -9,7 +9,7 @@ const HeaderComponent = ({ progress, lives }: ProgressProps & { lives: number })
       <ProgressBar progress={progress} />
       <Image
         source={{
-          uri: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749650690/shiny-blue-orb-abstract-sphere-a-dynamic-depiction-of-an-orb-navigating-a-world-of-abstract-spheres-its-surface-glowing-with-vibrant-colors-in-a-digital-world-free-png_r26u80.png',
+          uri: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749665472/3dedcd235214cdde6b4e171fdbf66c9d-heart-icon_kdziki.png',
         }}
         className="mx-2 h-8 w-8"
         resizeMode="contain"

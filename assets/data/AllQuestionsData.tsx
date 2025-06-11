@@ -8,23 +8,23 @@ const questions: QuizQuestion[] = [
     options: [
       {
         id: 'option1',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
         text: 'Rebellion',
       },
       {
         id: 'option2',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
         text: 'Yamato',
         correct: true,
       },
       {
         id: 'option3',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
         text: 'Red Queen',
       },
       {
         id: 'option4',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
         text: 'Ebony & Ivory',
       },
     ],
@@ -33,7 +33,7 @@ const questions: QuizQuestion[] = [
     id: 'q5',
     type: 'OPEN_ENDED',
     text: 'I am the storm that is approaching',
-    answer: 'Aš esu audra, kuri artėja',
+    answer: 'As esu audra kuri arteja',
   },
   {
     id: 'q2',
@@ -42,23 +42,23 @@ const questions: QuizQuestion[] = [
     options: [
       {
         id: 'option4',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
         text: 'Ebony & Ivory',
       },
       {
         id: 'option1',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
         text: 'Rebellion',
       },
       {
         id: 'option3',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
         text: 'Red Queen',
         correct: true,
       },
       {
         id: 'option2',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
         text: 'Yamato',
       },
     ],
@@ -76,22 +76,22 @@ const questions: QuizQuestion[] = [
     options: [
       {
         id: 'option3',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
         text: 'Red Queen',
       },
       {
         id: 'option2',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
         text: 'Yamato',
       },
       {
         id: 'option4',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
         text: 'Ebony & Ivory',
       },
       {
         id: 'option1',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
         text: 'Rebellion',
         correct: true,
       },
@@ -104,22 +104,22 @@ const questions: QuizQuestion[] = [
     options: [
       {
         id: 'option2',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649434/61GswPhm0pL._AC_UF1000_1000_QL80__yvdafg.jpg',
         text: 'Yamato',
       },
       {
         id: 'option3',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649342/51RX-P1Ve2L._AC_UF1000_1000_QL80__p8ipsz.jpg',
         text: 'Red Queen',
       },
       {
         id: 'option1',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649211/61cD34KOmQL._AC_UF1000_1000_QL80__omhq1u.jpg',
         text: 'Rebellion',
       },
       {
         id: 'option4',
-        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
+        image: 'https://res.cloudinary.com/dmzg0apbj/image/upload/e_background_removal/f_png/v1749649507/518Q_JmHHNL._UF894_1000_QL80__b3yoch.jpg',
         text: 'Ebony & Ivory',
         correct: true,
       },
@@ -134,3 +134,4 @@ const questions: QuizQuestion[] = [
 ];
 
 export default questions;
+
