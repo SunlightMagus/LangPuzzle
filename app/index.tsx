@@ -9,24 +9,20 @@ import HeaderComponent from '~/components/HeaderComponent';
 import { SignOutButton } from '~/components/SignOutButton';
 import { useRouter } from 'expo-router';
 import StyledButton from '~/components/StyledButton';
-
-// Importuojame Clerk hook
 import { useUser } from '@clerk/clerk-expo';
+import VictoryModal from '~/components/VictoryModal';
 
 export default function Home() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion>(questions[0]);
   const [lives, setLives] = useState(5);
+  const [showVictoryModal, setShowVictoryModal] = useState(false);
   const router = useRouter();
-
-  // Clerk vartotojo info
   const { user, isLoaded } = useUser();
 
   useEffect(() => {
     if (currentQuestionIndex >= questions.length) {
-      Alert.alert('Jūs laimėjote!');
-      setCurrentQuestionIndex(0);
-      setCurrentQuestion(questions[0]);
+      setShowVictoryModal(true); // Rodyti modalą
     } else {
       setCurrentQuestion(questions[currentQuestionIndex]);
     }
@@ -51,9 +47,9 @@ export default function Home() {
     setLives(5);
     setCurrentQuestionIndex(0);
     setCurrentQuestion(questions[0]);
+    setShowVictoryModal(false); // Paslėpti modalą
   };
 
-  // Kol kraunasi user info - rodome tuščią arba loaderį
   if (!isLoaded) {
     return null; // arba loader komponentas
   }
@@ -62,31 +58,23 @@ export default function Home() {
     <SafeAreaView className="flex flex-1 p-3">
       <StatusBar animated barStyle="default" />
 
-      {/* Rodyti prisijungusio vartotojo vardą */}
       <View style={{ marginBottom: 10 }}>
         <Text style={{ fontSize: 16 }}>
           Prisijungęs vartotojas: {user?.firstName ?? 'Vartotojas'}
         </Text>
-        {/* Rodyti el. paštą */}
         <Text style={{ fontSize: 12, color: 'gray' }}>
           {user?.primaryEmailAddress?.emailAddress ?? ''}
         </Text>
       </View>
 
-      {/* Header */}
       <HeaderComponent progress={currentQuestionIndex / questions.length} lives={lives} />
 
-      {/* Buttons */}
       <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
         <SignOutButton />
         <View style={{ width: 12 }} />
-        <StyledButton
-          title="Dėlionės žaidimas"
-          onPress={() => router.push('/puzzle')}
-        />
+        <StyledButton title="Dėlionės žaidimas" onPress={() => router.push('/puzzle')} />
       </View>
 
-      {/* Question Types */}
       {currentQuestion.type === 'MULTIPLE_CHOICE' && (
         <MultipleChoiceQuestion
           question={currentQuestion}
@@ -102,6 +90,9 @@ export default function Home() {
           onWrongAnswer={onWrongAnswer}
         />
       )}
+
+      {/* Modalas pergalės atveju */}
+      <VictoryModal visible={showVictoryModal} onClose={restart} />
     </SafeAreaView>
   );
 }
