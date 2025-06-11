@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StatusBar, View } from 'react-native';
+import { Alert, StatusBar, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import questions from '~/assets/data/AllQuestionsData';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
@@ -10,11 +10,17 @@ import { SignOutButton } from '~/components/SignOutButton';
 import { useRouter } from 'expo-router';
 import StyledButton from '~/components/StyledButton';
 
+// Importuojame Clerk hook
+import { useUser } from '@clerk/clerk-expo';
+
 export default function Home() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion>(questions[0]);
   const [lives, setLives] = useState(5);
   const router = useRouter();
+
+  // Clerk vartotojo info
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
     if (currentQuestionIndex >= questions.length) {
@@ -47,9 +53,25 @@ export default function Home() {
     setCurrentQuestion(questions[0]);
   };
 
+  // Kol kraunasi user info - rodome tuščią arba loaderį
+  if (!isLoaded) {
+    return null; // arba loader komponentas
+  }
+
   return (
     <SafeAreaView className="flex flex-1 p-3">
       <StatusBar animated barStyle="default" />
+
+      {/* Rodyti prisijungusio vartotojo vardą */}
+      <View style={{ marginBottom: 10 }}>
+        <Text style={{ fontSize: 16 }}>
+          Prisijungęs vartotojas: {user?.firstName ?? 'Vartotojas'}
+        </Text>
+        {/* Galbūt norėsi parodyti ir el. paštą */}
+        <Text style={{ fontSize: 12, color: 'gray' }}>
+          {user?.primaryEmailAddress?.emailAddress ?? ''}
+        </Text>
+      </View>
 
       {/* Header */}
       <HeaderComponent progress={currentQuestionIndex / questions.length} lives={lives} />
