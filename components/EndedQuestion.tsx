@@ -23,7 +23,7 @@ const EndedQuestion = ({ question, onCorrectAnswer, onWrongAnswer }: EndedQuesti
         <View className="m-2 mb-0 flex flex-row items-center self-stretch">
           <Image
             source={{
-              uri: 'https://res.cloudinary.com/dis6tbci7/image/upload/v1738675454/Boy_qcbv19.png',
+              uri: 'https://res.cloudinary.com/dmzg0apbj/image/upload/v1749650535/chibi_vergil3_mfkgn1.png',
             }}
             style={{ width: 100, height: 133, marginRight: 8 }}
             resizeMode="contain"

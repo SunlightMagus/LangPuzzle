@@ -16,17 +16,17 @@ export default function StyledButton({ title, onPress }: StyledButtonProps) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#2563eb',
-    paddingVertical: 8,   // smaller vertical padding
-    paddingHorizontal: 12, // smaller horizontal padding
+    backgroundColor: '#75dcd5',
+    paddingVertical: 8,   
+    paddingHorizontal: 12, 
     borderRadius: 6,
     marginTop: 12,
-    alignSelf: 'flex-start', // optional, if you want button not to stretch full width
+    alignSelf: 'flex-start', 
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 16,         // smaller font size
+    fontSize: 16,         
     fontWeight: '600',
   },
 });
