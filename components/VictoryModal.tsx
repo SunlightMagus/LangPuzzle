@@ -13,7 +13,7 @@ const VictoryModal = ({ visible, onClose }: { visible: boolean; onClose: () => v
             }}
             style={styles.gif}
           />
-          <Text style={styles.message}>Jūs laimėjote quiz'ą!</Text>
+          <Text style={styles.message}>Jūs laimėjote!</Text>
           <Button title="Uždaryti" onPress={onClose} />
         </View>
       </View>
